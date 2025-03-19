@@ -22,4 +22,9 @@ class BankAccount
     {
         return balance;
     }
+
+    public BankAccount(int amount)
+    {
+        balance = amount;
+    }
 }
