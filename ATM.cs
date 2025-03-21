@@ -2,6 +2,11 @@
 
 public class ATM
 {
+    public enum ATMAction{
+        InsertCard,
+        EnterPin,
+        DisplayOptions
+    }
     private bool cardInserted;
     private bool pinValidated;
     private BankServer bankServer;
@@ -15,6 +20,7 @@ public class ATM
     {
         if (bankServer.verifyCard(cardNumber))
         {
+            currentCardNumber = cardNumber;
             Console.WriteLine("Card verification successful! Plese enter pin, then press enter:\n");
             if(enterPIN())
             {
@@ -40,31 +46,38 @@ public class ATM
     }
     public void requestAmount()
     {
-        int amountOut;
+        double amountOut;
         try{
-            amountOut = Convert.ToInt32(Console.ReadLine());
+            amountOut = Convert.ToDouble(Console.ReadLine());
         }
         catch{
             Console.WriteLine("Please enter a valid number");
             requestAmount();
         }
-        
+        bankServer.processTransaction(currentCardNumber, amountOut);
     }
     public void dispenseCash()
     {
-
+        for(int a = 0; a < int.MaxValue; a ++)
+        {
+            Console.Write("$$$");
+        }
+        ejectCard();
     }
     public void ejectCard()
     {
-        Console.WriteLine("That card wasn't recognized. Card ejecting.");
+        Console.WriteLine("Card ejecting.");
+        currentCardNumber = "";
         cardInserted = false;
     }
     public void checkBalance()
     {
-
+        Console.WriteLine("Your current balance is " + bankServer.checkBalance(currentCardNumber));
     }
-    public void getNextAction()
+    public ATMAction getNextAction()
     {
-
+        if(!cardInserted) return ATMAction.InsertCard;
+        else if(!pinValidated) return ATMAction.EnterPin;
+        else return ATMAction.DisplayOptions;
     }
 }
