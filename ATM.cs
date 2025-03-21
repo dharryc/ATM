@@ -13,10 +13,16 @@ public class ATM
     }
     public void insertCard(string cardNumber)
     {
-        
+        if(bankServer.verifyCard(cardNumber))
+        {
+            Console.WriteLine("Card verification successful! Plese enter pin, then press enter:\n");
+            enterPIN();
+        }
+        else ejectCard();
     }
     public bool enterPIN()
     {
+        int pin = Convert.ToInt32(Console.ReadLine());
         return true;
     }
     public void requestAmount()
