@@ -23,7 +23,7 @@ class BankAccount
         return balance;
     }
 
-    public BankAccount(int amount)
+    public BankAccount(double amount)
     {
         balance = amount;
     }

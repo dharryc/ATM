@@ -10,13 +10,13 @@
 | + checkBalance(cardNumber: string) : double*/
 namespace ATM
 {
-   public class BankServer
+    class BankServer
 
     {
-    
+
         private Dictionary<string, (int, BankAccount)> validCards;
-  
-        private BankServer(Dictionary<string, (int, BankAccount)> initialCards)
+
+        public BankServer(Dictionary<string, (int, BankAccount)> initialCards)
         {
             validCards = initialCards;
         }
@@ -26,7 +26,7 @@ namespace ATM
         }
         public bool verifyPIN(string cardNumber, int pin)
         {
-            if(validCards.ContainsKey(cardNumber))
+            if (validCards.ContainsKey(cardNumber))
             {
                 var storePin = validCards[cardNumber].Item1;
                 return storePin == pin;
@@ -35,7 +35,7 @@ namespace ATM
         }
         public bool processTransaction(string cardNumber, double amount)
         {
-            if(validCards[cardNumber].Item2.hasSufficientFunds(amount))
+            if (validCards[cardNumber].Item2.hasSufficientFunds(amount))
             {
                 return true;
             }
