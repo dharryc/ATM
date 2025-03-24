@@ -35,7 +35,7 @@ public class ATM
     {
         try{
             int pin = Convert.ToInt32(Console.ReadLine());
-            return(bankServer.verifyPIN(pin));
+            return(bankServer.verifyPIN(currentCardNumber, pin));
         }
         catch
         {
