@@ -46,7 +46,7 @@ public class ATM
     }
     public void requestAmount()
     {
-        double amountOut;
+        double amountOut = 0;
         try{
             amountOut = Convert.ToDouble(Console.ReadLine());
         }
