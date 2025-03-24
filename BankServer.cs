@@ -11,7 +11,9 @@
 namespace ATM
 {
    public class BankServer
+
     {
+        BankAccount account = new BankAccount(1000);
     
         public Dictionary<string, (int pin, BankAccount account)> validCards;
   
@@ -22,15 +24,23 @@ namespace ATM
         }
         public bool verifyCard(string cardNumber)
         {
-            return false;
+            return validCards.ContainsKey(cardNumber);
         }
         public bool verifyPIN(string cardNumber, int pin)
         {
+            if(validCards.ContainsKey(cardNumber))
+            {
+                var storePin = validCards[cardNumber].pin;
+                return storePin == pin;
+            }
             return false;
         }
         public bool processTransaction(string cardNumber, double amount)
         {
-            return false;
+            if(account.hasSufficientFunds(amount))
+            {
+                return 
+            }
         }
         public double checkBalance(string cardNumber)
         {
