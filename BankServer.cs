@@ -1,48 +1,39 @@
-using System.Net.NetworkInformation;
-
 namespace ATM
 {
-   public class BankServer
+    class BankServer
 
     {
-    
-        private Dictionary<string, (int pin, BankAccount account)> ValidCards;
+        private Dictionary<string, (int pin, BankAccount account)> validCards;
 
         public BankServer(Dictionary<string, (int pin, BankAccount account)> initialCards = null)
         {
-            ValidCards = initialCards ?? new Dictionary<string, (int pin, BankAccount account)>();
+            validCards = initialCards ?? new Dictionary<string, (int pin, BankAccount account)>();
         }
 
         public bool verifyCard(string cardNumber)
         {
-            return ValidCards.ContainsKey(cardNumber);
+            return validCards.ContainsKey(cardNumber);
         }
         public bool verifyPIN(string cardNumber, int pin)
         {
-            if (ValidCards.TryGetValue(cardNumber, out var cardInfo))
+            if (validCards.ContainsKey(cardNumber))
             {
-                return cardInfo.pin == pin;
+                var storePin = validCards[cardNumber].Item1;
+                return storePin == pin;
             }
             return false;
         }
         public bool processTransaction(string cardNumber, double amount)
         {
-            if (ValidCards.TryGetValue(cardNumber, out var cardInfo))
+            if (validCards[cardNumber].account.hasSufficientFunds(amount))
             {
-                if (cardInfo.account.hasSufficientFunds(amount))
-                {
-                    return cardInfo.account.Withdraw(amount);
-                }
+                return true;
             }
             return false;
         }
         public double checkBalance(string cardNumber)
         {
-            if (ValidCards.TryGetValue(cardNumber, out var cardInfo))
-            {
-                return cardInfo.account.GetBalance();
-            }
-            return 0;
+            return validCards[cardNumber].account.GetBalance();
         }
 
     }

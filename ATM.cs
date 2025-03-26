@@ -1,6 +1,6 @@
 ﻿namespace ATM;
 
-public class ATM
+class ATM
 {
     public enum ATMAction{
         InsertCard,
@@ -10,11 +10,13 @@ public class ATM
     private bool cardInserted;
     private bool pinValidated;
     private BankServer bankServer;
-    private string? currentCardNumber;
+    private string currentCardNumber;
 
     public ATM(BankServer server)
     {
         bankServer = server;
+        cardInserted = false;
+        pinValidated = false;
     }
     public void insertCard(string cardNumber)
     {
