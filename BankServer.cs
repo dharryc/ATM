@@ -5,9 +5,9 @@ namespace ATM
     {
         private Dictionary<string, (int pin, BankAccount account)> validCards;
 
-        public BankServer(Dictionary<string, (int pin, BankAccount account)> initialCards)
+        public BankServer(Dictionary<string, (int pin, BankAccount account)> initialCards = null)
         {
-            validCards = initialCards;
+            validCards = initialCards ?? new Dictionary<string, (int pin, BankAccount account)>();
         }
 
         public bool verifyCard(string cardNumber)
