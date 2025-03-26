@@ -13,7 +13,6 @@ namespace ATM
     class BankServer
 
     {
-
         private Dictionary<string, (int, BankAccount)> validCards;
 
         public BankServer(Dictionary<string, (int, BankAccount)> initialCards)
