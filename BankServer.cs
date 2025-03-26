@@ -9,9 +9,10 @@ namespace ATM
         {
             validCards = initialCards;
         }
+
         public bool verifyCard(string cardNumber)
         {
-            return validCards.ContainsKey(cardNumber);
+            return ValidCards.ContainsKey(cardNumber);
         }
         public bool verifyPIN(string cardNumber, int pin)
         {
@@ -28,6 +29,7 @@ namespace ATM
             {
                 return true;
             }
+            return false;
             return false;
         }
         public double checkBalance(string cardNumber)
