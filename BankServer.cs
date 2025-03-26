@@ -1,21 +1,11 @@
-
-/*BankServer                                                                                                                    |
-+----------------------------------------------------------------------------------------------+
-| - validCards: Dictionary<string, (int pin, BankAccount account)>                             |
-+----------------------------------------------------------------------------------------------+
-| + BankServer(initialCards: Dictionary<string, (int pin, BankAccount account)>      |
-| + verifyCard(cardNumber: string) : bool                                                                       |
-| + verifyPIN(cardNumber: string, pin: int) : bool                                                           |
-| + processTransaction(cardNumber: string, amount: double) : bool                            |
-| + checkBalance(cardNumber: string) : double*/
 namespace ATM
 {
     class BankServer
 
     {
-        private Dictionary<string, (int, BankAccount)> validCards;
+        private Dictionary<string, (int pin, BankAccount account)> validCards;
 
-        public BankServer(Dictionary<string, (int, BankAccount)> initialCards)
+        public BankServer(Dictionary<string, (int pin, BankAccount account)> initialCards)
         {
             validCards = initialCards;
         }
