@@ -1,6 +1,6 @@
 ﻿namespace ATM;
 
-public class ATM
+class ATM
 {
     public enum ATMAction{
         InsertCard,
@@ -10,11 +10,13 @@ public class ATM
     private bool cardInserted;
     private bool pinValidated;
     private BankServer bankServer;
-    private string? currentCardNumber;
+    private string currentCardNumber;
 
     public ATM(BankServer server)
     {
         bankServer = server;
+        cardInserted = false;
+        pinValidated = false;
     }
     public void insertCard(string cardNumber)
     {
@@ -24,7 +26,6 @@ public class ATM
             Console.WriteLine("Card verification successful! Plese enter pin, then press enter:\n");
             if(enterPIN())
             {
-                Console.WriteLine("How much would you like to withdraw?");
                 requestAmount();
             }
             else ejectCard();
@@ -35,23 +36,21 @@ public class ATM
     {
         try{
             int pin = Convert.ToInt32(Console.ReadLine());
-            return(bankServer.verifyPIN(pin));
+            return(bankServer.verifyPIN(currentCardNumber, pin));
         }
         catch
         {
             Console.WriteLine("Please enter a valid pin");
             return enterPIN();
         }
-        return false;
     }
     public void requestAmount()
     {
-        double amountOut;
+        double amountOut = 0;
         try{
             amountOut = Convert.ToDouble(Console.ReadLine());
         }
         catch{
-            Console.WriteLine("Please enter a valid number");
             requestAmount();
         }
         bankServer.processTransaction(currentCardNumber, amountOut);
@@ -66,7 +65,6 @@ public class ATM
     }
     public void ejectCard()
     {
-        Console.WriteLine("Card ejecting.");
         currentCardNumber = "";
         cardInserted = false;
     }
