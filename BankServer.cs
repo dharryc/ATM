@@ -12,7 +12,7 @@ namespace ATM
 
         public bool verifyCard(string cardNumber)
         {
-            return ValidCards.ContainsKey(cardNumber);
+            return validCards.ContainsKey(cardNumber);
         }
         public bool verifyPIN(string cardNumber, int pin)
         {
@@ -25,16 +25,15 @@ namespace ATM
         }
         public bool processTransaction(string cardNumber, double amount)
         {
-            if (validCards[cardNumber].Item2.hasSufficientFunds(amount))
+            if (validCards[cardNumber].account.hasSufficientFunds(amount))
             {
                 return true;
             }
             return false;
-            return false;
         }
         public double checkBalance(string cardNumber)
         {
-            return validCards[cardNumber].Item2.GetBalance();
+            return validCards[cardNumber].account.GetBalance();
         }
 
     }
