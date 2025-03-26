@@ -7,12 +7,12 @@ namespace ATM
     {
     
         private Dictionary<string, (int pin, BankAccount account)> ValidCards;
-  
+
         public BankServer(Dictionary<string, (int pin, BankAccount account)> initialCards = null)
         {
-            ValidCards = initialCards;
-        
+            ValidCards = initialCards ?? new Dictionary<string, (int pin, BankAccount account)>();
         }
+
         public bool verifyCard(string cardNumber)
         {
             return ValidCards.ContainsKey(cardNumber);
