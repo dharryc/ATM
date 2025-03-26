@@ -2,7 +2,8 @@
 
 class ATM
 {
-    public enum ATMAction{
+    public enum ATMAction
+    {
         InsertCard,
         EnterPin,
         DisplayOptions
@@ -24,7 +25,7 @@ class ATM
         {
             currentCardNumber = cardNumber;
             Console.WriteLine("Card verification successful! Plese enter pin, then press enter:\n");
-            if(enterPIN())
+            if (enterPIN())
             {
                 requestAmount();
             }
@@ -34,9 +35,10 @@ class ATM
     }
     public bool enterPIN()
     {
-        try{
+        try
+        {
             int pin = Convert.ToInt32(Console.ReadLine());
-            return(bankServer.verifyPIN(currentCardNumber, pin));
+            return (bankServer.verifyPIN(currentCardNumber, pin));
         }
         catch
         {
@@ -47,17 +49,19 @@ class ATM
     public void requestAmount()
     {
         double amountOut = 0;
-        try{
+        try
+        {
             amountOut = Convert.ToDouble(Console.ReadLine());
         }
-        catch{
+        catch
+        {
             requestAmount();
         }
         bankServer.processTransaction(currentCardNumber, amountOut);
     }
     public void dispenseCash()
     {
-        for(int a = 0; a < int.MaxValue; a ++)
+        for (int a = 0; a < int.MaxValue; a++)
         {
             Console.Write("$$$");
         }
@@ -74,8 +78,8 @@ class ATM
     }
     public ATMAction getNextAction()
     {
-        if(!cardInserted) return ATMAction.InsertCard;
-        else if(!pinValidated) return ATMAction.EnterPin;
+        if (!cardInserted) return ATMAction.InsertCard;
+        else if (!pinValidated) return ATMAction.EnterPin;
         else return ATMAction.DisplayOptions;
     }
 }
